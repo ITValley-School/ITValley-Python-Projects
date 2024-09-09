@@ -35,3 +35,4 @@ scripto.ai/.git
 
 # Ignorar outros arquivos
 *.pyc
+scripto.ai/.env
