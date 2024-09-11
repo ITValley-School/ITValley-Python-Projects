@@ -1,6 +1,5 @@
 import streamlit as st
-import ts_videos_youtube as lch
-import textwrap
+import ts_videos_youtube as lch  # Importando o módulo para funções do back-end
 from datetime import datetime
 import time
 from fpdf import FPDF
@@ -142,7 +141,7 @@ st.markdown(
 )
 
 # Adicionando o logo no topo da página com largura ajustada
-# st.image("C:/LangChain-Projects/Class4/it_valley.png", width=150)
+st.image("it_valley.png", width=150)
 
 # Título principal e subtítulo
 st.markdown("<h1 class='main-title'>scripto.ai</h1>", unsafe_allow_html=True)
@@ -165,6 +164,15 @@ if video_url:
     with st.spinner(f"Transcribing video from {video_url}..."):
         video_info = lch.get_video_metadata(video_url)
         
+        # Verificando se a thumbnail está disponível
+        thumbnail_url = video_info.get('thumbnail_url')
+        if thumbnail_url:
+            st.image(thumbnail_url, width=200)
+            # Adicionar o link para o vídeo abaixo do thumbnail
+            st.markdown(f"[Assistir no YouTube]({video_url})", unsafe_allow_html=True)
+        else:
+            st.warning("Thumbnail not available")
+
         # Convertendo a data de publicação para o formato dd-mm-aaaa
         publish_date = datetime.strptime(video_info['publish_date'], "%Y-%m-%d").strftime("%d-%m-%Y")
         
@@ -230,6 +238,6 @@ st.markdown(
     <div class="footer">
         © 2024 scripto.ai. All rights reserved.
     </div>
-    """,
+    """, 
     unsafe_allow_html=True,
 )

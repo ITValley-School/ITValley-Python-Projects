@@ -2,7 +2,6 @@ from langchain.document_loaders import YoutubeLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-from langchain.chains import LLMChain
 from dotenv import load_dotenv
 import os
 from pytube import YouTube
@@ -23,7 +22,8 @@ def get_video_metadata(video_url: str):
         "title": yt.title,
         "channel": yt.author,
         "duration": yt.length // 60,  # Duração em minutos
-        "publish_date": yt.publish_date.strftime('%Y-%m-%d')
+        "publish_date": yt.publish_date.strftime('%Y-%m-%d'),
+        "thumbnail_url": yt.thumbnail_url  # Adiciona a URL da thumbnail
     }
     return video_info
 
