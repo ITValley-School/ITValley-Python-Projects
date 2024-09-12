@@ -25,23 +25,19 @@ jobs:
       - name: Create and start virtual environment
         run: |
           python -m venv venv
-          source venv/bin/activate
-      
-      - name: Install dependencies
-        run: pip install -r scripto.ai/requirements.txt  # Corrigido o caminho para o requirements.txt
+          . venv/bin/activate  # Corrigido para o ambiente GitHub Actions
+          pip install -r scripto.ai/requirements.txt  # Corrigido o caminho para o requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip -r release.zip ./* -x "venv/*"  # Excluindo venv do zip
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: |
-            release.zip
-            !venv/
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,7 +46,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write  # Required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -71,5 +67,5 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'app-scriptoai-youtube'
-          # O slot-name é opcional, remova se não estiver usando slots
+          # Remova o slot-name se não estiver usando slots
           # slot-name: 'Production'  # Remova esta linha se não estiver usando slots
