@@ -8,7 +8,7 @@ __pycache__/
 
 # Ignorar arquivos de credenciais
 *.json
-*.txt
+
 
 # Ignorar ambientes virtuais
 .venv/
