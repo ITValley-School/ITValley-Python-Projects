@@ -3,6 +3,7 @@ import ts_videos_youtube as lch  # Importando o módulo para funções do back-e
 from datetime import datetime
 import time
 from fpdf import FPDF
+import os
 
 # Dicionário para armazenar transcrições por ID de arquivo
 transcription_cache = {}
