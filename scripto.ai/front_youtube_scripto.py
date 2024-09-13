@@ -247,4 +247,5 @@ st.markdown(
 # Garantir que a aplicação escute na porta 8080 ao ser implantada no Google Cloud Run
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    st.run(port=port)
+    st._is_running_with_streamlit = False
+    os.system(f"streamlit run front_youtube_scripto.py --server.port {port}")

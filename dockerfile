@@ -21,11 +21,11 @@ COPY . .
 # Define a variável de ambiente para desabilitar buffering de logs
 ENV PYTHONUNBUFFERED=1
 
-# Expõe a porta onde a aplicação será executada
-EXPOSE 8501
+# Expõe a porta 8080 (porta padrão do Google Cloud Run)
+EXPOSE 8080
 
-# Define o comando para iniciar o Streamlit
-CMD ["streamlit", "run", "scripto.ai/front_youtube_scripto.py"]
+# Define o comando para iniciar o Streamlit na porta 8080 e com o endereço 0.0.0.0
+CMD ["streamlit", "run", "front_youtube_scripto.py", "--server.port", "8080", "--server.address", "0.0.0.0"]
 
+# Copia o logo para o contêiner
 COPY it_valley.png /app/
-
