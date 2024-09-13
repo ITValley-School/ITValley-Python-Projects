@@ -221,8 +221,8 @@ if video_url:
             pdf.multi_cell(0, 10, "Transcript:\n", align="L")
             pdf.multi_cell(0, 10, formatted_transcript, align="L")
 
-            # Salvando o PDF em um buffer
-            pdf_output = pdf.output(dest='S').encode('latin1')
+            # Salvando o PDF em um buffer como bytes
+            pdf_output = pdf.output(dest='S').encode('latin1')  # Converta para bytes com a codificação 'latin1'
 
             # Botão para fazer o download do PDF
             st.download_button(
@@ -231,6 +231,7 @@ if video_url:
                 file_name=f"{video_info['title']}_transcript.pdf",
                 mime="application/pdf",
             )
+
 
 # Rodapé estilizado
 st.markdown(
